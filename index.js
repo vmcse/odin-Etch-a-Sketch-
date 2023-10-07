@@ -3,15 +3,15 @@ document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => (mouseDown = false);
 
 const createGrid = (cellCount) => {
-  const container = document.querySelector(".container");
-  container.setAttribute("draggable", "false");
-  container.innerHTML = "";
+  const grid = document.querySelector(".grid");
+  grid.setAttribute("draggable", "false");
+  grid.innerHTML = "";
 
-  container.style.gridTemplateColumns = `repeat(${cellCount}, 1fr)`;
-  container.style.gridTemplateRows = `repeat(${cellCount}, 1fr)`;
+  grid.style.gridTemplateColumns = `repeat(${cellCount}, 1fr)`;
+  grid.style.gridTemplateRows = `repeat(${cellCount}, 1fr)`;
 
-  const containerSize = container.offsetWidth;
-  const cellSize = containerSize / cellCount;
+  const gridSize = grid.offsetWidth;
+  const cellSize = gridSize / cellCount;
 
   console.log(cellSize);
 
@@ -35,7 +35,7 @@ const createGrid = (cellCount) => {
       });
       newRow.appendChild(newCell);
     }
-    container.appendChild(newRow);
+    grid.appendChild(newRow);
   }
 };
 
