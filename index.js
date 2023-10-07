@@ -6,6 +6,10 @@ const createGrid = (cellCount) => {
   const container = document.querySelector(".container");
   container.setAttribute("draggable", "false");
   container.innerHTML = "";
+
+  container.style.gridTemplateColumns = `repeat(${cellCount}, 1fr)`;
+  container.style.gridTemplateRows = `repeat(${cellCount}, 1fr)`;
+
   const containerSize = container.offsetWidth;
   const cellSize = containerSize / cellCount;
 
