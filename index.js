@@ -1,22 +1,12 @@
-const main = () => {
-  createGrid(16);
-
-  const promtBtn = document.querySelector(".prompt");
-
-  promtBtn.addEventListener("click", (e) => {
-    let cellSize;
-    do {
-      cellSize = prompt("Cell Size");
-    } while (cellSize > 100);
-
-    createGrid(cellSize);
-  });
-};
+let mouseDown = false;
+document.body.onmousedown = () => (mouseDown = true);
+document.body.onmouseup = () => (mouseDown = false);
 
 const createGrid = (cellCount) => {
   const container = document.querySelector(".container");
+  container.setAttribute("draggable", "false");
   container.innerHTML = "";
-  const containerSize = container.clientHeight;
+  const containerSize = container.offsetWidth;
   const cellSize = containerSize / cellCount;
 
   console.log(cellSize);
@@ -26,14 +16,18 @@ const createGrid = (cellCount) => {
     for (let j = 0; j < cellCount; j++) {
       const newCell = document.createElement("div");
       newCell.className = "item";
+      newCell.setAttribute("draggable", "false");
       newCell.style.height = `${cellSize}px`;
       newCell.style.width = `${cellSize}px`;
-      newCell.addEventListener("mouseover", (e) => {
-        const red = Math.random() * 256;
-        const blue = Math.random() * 256;
-        const green = Math.random() * 256;
+      newCell.addEventListener("mousemove", (e) => {
+        e.preventDefault();
+        if (mouseDown) {
+          const red = Math.random() * 256;
+          const blue = Math.random() * 256;
+          const green = Math.random() * 256;
 
-        e.target.style.background = `rgb(${red}, ${green}, ${blue})`;
+          e.target.style.background = `rgb(${red}, ${green}, ${blue})`;
+        }
       });
       newRow.appendChild(newCell);
     }
@@ -41,4 +35,15 @@ const createGrid = (cellCount) => {
   }
 };
 
-main();
+createGrid(16);
+
+const promtBtn = document.querySelector(".prompt");
+
+promtBtn.addEventListener("click", (e) => {
+  let cellSize;
+  do {
+    cellSize = prompt("Cell Size");
+  } while (cellSize > 100);
+
+  createGrid(cellSize);
+});
